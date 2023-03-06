@@ -53,8 +53,8 @@ double[] ReverseArray(double[] array)               // поворот масси
 }
 
 
-double h = Input("Введите замер ");                                // ввод замера
-double[] diametr = new double[] { 0.164, 3, 3, 0.315, 0.315, 2.3, 2.3 };        // диаметры отрезка колоны
+double h = Input("Введите замер ");                                         // ввод замера
+double[] diametr = new double[] { 0.164, 3, 3, 0.315, 0.315, 2.3, 2.3 };    // диаметры отрезка колоны
 double[] height = new double[] { 1.335, 7.31, 0.3, 1.7, 0.993, 1 };         // высоты отрезка колон
 double[] divD = DivArray(diametr);                                          // радиусы отрезка колон (для расчетов)
 double[] sumH = SumArray(height);                                           // сумма высот колон                          
@@ -72,7 +72,7 @@ for (int i = 0; i < height.Length; i++)                                     // �
 }
 for (int k = 0; k < height.Length; k++)                                     // нахождение индекса заполености
 {
-    if (hzapolneni<=sumH[k])
+    if (hzapolneni>=sumH[k])
     {
         vArrayZapolneni = sumV[k];
         indexArrayZapolneni = k;
