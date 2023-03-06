@@ -82,16 +82,16 @@ if ( h == 0)                                                                // �
 {
 Console.WriteLine("Заполненый обьем: " + vtotal);
 }
-if ( h > sumH[sumH.Length-1])                                               // проверка на реальность
+else if ( h > sumH[sumH.Length-1])                                               // проверка на реальность
 {
 Console.WriteLine("Общая высота колоны: " + sumH[sumH.Length-1]);
 }
-else
+else 
 {
 vZapolneni = sumV[indexArrayZapolneni] + FindVolume(divD[indexArrayZapolneni], divD[indexArrayZapolneni + 1], (height[indexArrayZapolneni]-h));
 Console.WriteLine("Заполненый обьем: " + vZapolneni);
 }
-
+Console.WriteLine("-----------------------------------------------------------");
 Console.WriteLine("Последний массив заполненый обьем: " + vArrayZapolneni);
 Console.WriteLine("");
 Console.WriteLine("Общая высота колоны: " + sumH[sumH.Length-1]);
