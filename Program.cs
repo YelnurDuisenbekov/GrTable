@@ -34,11 +34,11 @@ double[] SumArray(double[] array)                   // для находения
     }
     return sumArray;
 }
-double VvodimoeChislo(string msg)                   // для ввода данных
+double Input(string msg)                   // для ввода данных
 {
     Console.Write(msg);
     string number = Console.ReadLine()!;
-    double VvodimoeChislo = Convert.ToInt32(number);
+    double VvodimoeChislo = double.Parse(number);
     return VvodimoeChislo;
 }
 double[] ReverseArray(double[] array)               // поворот массива
@@ -53,34 +53,46 @@ double[] ReverseArray(double[] array)               // поворот масси
 }
 
 
-
-
-double h = VvodimoeChislo("Введите замер ");                                // ввод замера
-double[] diametr = new double[] { 0.164, 3, 3, 0.315, 0.315, 3, 3 };        // диаметры отрезка колоны
+double h = Input("Введите замер ");                                // ввод замера
+double[] diametr = new double[] { 0.164, 3, 3, 0.315, 0.315, 2.3, 2.3 };        // диаметры отрезка колоны
 double[] height = new double[] { 1.335, 7.31, 0.3, 1.7, 0.993, 1 };         // высоты отрезка колон
 double[] divD = DivArray(diametr);                                          // радиусы отрезка колон (для расчетов)
-double[] sumH = SumArray(height);                                           // сумма высот колон
+double[] sumH = SumArray(height);                                           // сумма высот колон                          
 double vtotal = 0;
-double vzapolneni = 0;
+double vArrayZapolneni = 0;
+double vZapolneni = 0;
+int indexArrayZapolneni = 0;
 double hzapolneni = sumH[sumH.Length-1]-h;
-for (int i = 0; i < height.Length; i++)                                     // общий обьем
+int sizeH = height.Length;
+double[] sumV = new double[sizeH];
+for (int i = 0; i < height.Length; i++)                                     // общий обьем с записью в массив
 {
     vtotal = vtotal + FindVolume(divD[i], divD[i + 1], height[i]);
+    sumV[i] = vtotal;                                                       // сумма обьемов колон
 }
-for (int k = 0; k < height.Length; k++)                                     // обьем запонленного 
+for (int k = 0; k < height.Length; k++)                                     // нахождение индекса заполености
 {
-    if (hzapolneni>sumH[k])
+    if (hzapolneni>=sumH[k])
     {
-        vzapolneni = vzapolneni + FindVolume(divD[k], divD[k + 1], height[k]);
+        vArrayZapolneni = sumV[k];
+        indexArrayZapolneni = k;
     }
-    else
-    {
-        double hdif = sumH[k]-hzapolneni;
-        vzapolneni = vzapolneni + FindVolume(divD[k-1], divD[k], hdif);
-    }
+}
+if ( h == 0)                                                                // проверка на 0
+{
+Console.WriteLine("Заполненый обьем: " + vtotal);
+}
+if ( h > sumH[sumH.Length-1])                                               // проверка на реальность
+{
+Console.WriteLine("Общая высота колоны: " + sumH[sumH.Length-1]);
+}
+else
+{
+vZapolneni = sumV[indexArrayZapolneni] + FindVolume(divD[indexArrayZapolneni], divD[indexArrayZapolneni + 1], (height[indexArrayZapolneni]-h));
+Console.WriteLine("Заполненый обьем: " + vZapolneni);
 }
 
-Console.WriteLine("   " + vzapolneni);
+Console.WriteLine("Последний массив заполненый обьем: " + vArrayZapolneni);
 Console.WriteLine("");
 Console.WriteLine("Общая высота колоны: " + sumH[sumH.Length-1]);
 Console.WriteLine("Осточная высота: " + hzapolneni);
@@ -89,6 +101,7 @@ Console.WriteLine("");
 Console.Write("Диаметры отрезка ");PrintArray(diametr);
 Console.Write("Радиусы отрезка ");PrintArray(divD);
 Console.Write("Высоты отрезка ");PrintArray(height);
+Console.Write("Сумма обьемов ");PrintArray(sumV);
 Console.Write("Сумма высот ");PrintArray(sumH);
 
 
