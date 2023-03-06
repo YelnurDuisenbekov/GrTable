@@ -72,7 +72,7 @@ for (int i = 0; i < height.Length; i++)                                     // �
 }
 for (int k = 0; k < height.Length; k++)                                     // нахождение индекса заполености
 {
-    if (hzapolneni>=sumH[k])
+    if (hzapolneni<=sumH[k])
     {
         vArrayZapolneni = sumV[k];
         indexArrayZapolneni = k;
